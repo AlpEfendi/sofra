@@ -42,6 +42,6 @@ function mealsFor(day,person){
  const entry=day<7?(person==='a'?lunchesA:lunchesB)[day]:(person==='a'?secondA:secondB)[day-7];
  meals.push({id:'lunch',time:person==='a'?'12:00':'12:30',title:entry[0],art:entry[1],lines:entry[2]||[day===10&&person==='a'?'3 yumurta + peynir + ekmek':'Menü taslağındaki öğün','Miktarlar önceki planda belirtilmemiş']});
  const d=dinners[day];
- meals.push({id:'dinner',time:'19:00',title:d[0],art:d[1],lines:d[2].map(x=>`${x[person]}${x.unit?' '+x.unit:''} · ${x.name}`),items:d[2]});
+ meals.push({id:'dinner',time:'20:00',title:d[0],art:d[1],lines:d[2].map(x=>`${x[person]}${x.unit?' '+x.unit:''} · ${x.name}`),items:d[2]});
  return meals;
 }
