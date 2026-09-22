@@ -36,12 +36,15 @@ const lunchesB=[
 ];
 const secondA=[['Yumurtalı kahvaltı & peynir','eggs'],['Ton balıklı sandviç & yoğurt','fish'],['Tavuklu dürüm','chicken'],['Yumurta, peynir & ekmek','eggs'],['Etli salata & ekmek','meat'],['Tavuklu sandviç & yoğurt','chicken'],['Yumurtalı kahvaltı & peynir','eggs']];
 const secondB=[['Tavuklu salata','chicken'],['Etli salata','meat'],['Tavuklu dürüm','chicken'],['Mercimek çorbası & tavuk','beans'],['Tavuklu salata','chicken'],['Tavuklu sandviç','chicken'],['Tavuklu salata','chicken']];
-function mealsFor(day,person){
+function mealsFor(day,person,date){
  const meals=[];
  if(person==='b') meals.push({id:'breakfast',time:'09:00',title:day===0?'Menemen':day===3?'Sebzeli omlet':'Yumurtalı kahvaltı',art:'eggs',lines:day<7?['2 yumurta','1 dilim tam buğday ekmeği','Söğüş sebze',...([1,6].includes(day)?['1 küçük meyve']:[])]:['Yumurtalı kahvaltı','İkinci hafta miktarları önceki planda belirtilmemiş']});
  const entry=day<7?(person==='a'?lunchesA:lunchesB)[day]:(person==='a'?secondA:secondB)[day-7];
  meals.push({id:'lunch',time:person==='a'?'12:00':'12:30',title:entry[0],art:entry[1],lines:entry[2]||[day===10&&person==='a'?'3 yumurta + peynir + ekmek':'Menü taslağındaki öğün','Miktarlar önceki planda belirtilmemiş']});
  const d=dinners[day];
  meals.push({id:'dinner',time:'20:00',title:d[0],art:d[1],lines:d[2].map(x=>`${x[person]}${x.unit?' '+x.unit:''} · ${x.name}`),items:d[2]});
- return meals;
+ return meals.map(m=>{
+  if((date==='2026-09-22'&&m.id==='dinner')||(date==='2026-09-23'&&m.id==='lunch')) return {...m,title:'Yoğurtlu kabak & ceviz',art:'vegetable',lines:['1 tabak · bildirdiğiniz porsiyon','Yoğurt, kabak, dereotu ve nane','Biraz zeytinyağında kırmızı toz biberle sotelenmiş ceviz'],items:[item('Yoğurtlu kabak ve ceviz',1,1,'tabak')]};
+  return m;
+ });
 }
