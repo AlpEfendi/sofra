@@ -46,5 +46,6 @@ function mealsFor(day,person,date){
  return meals.map(m=>{
   if((date==='2026-09-22'&&m.id==='dinner')||(date==='2026-09-23'&&m.id==='lunch')) return {...m,title:'Yoğurtlu kabak & ceviz',art:'vegetable',lines:['1 tabak · bildirdiğiniz porsiyon','Yoğurt, kabak, dereotu ve nane','Biraz zeytinyağında kırmızı toz biberle sotelenmiş ceviz'],items:[item('Yoğurtlu kabak ve ceviz',1,1,'tabak')]};
   return m;
- });
+ }).map(m=>({...m,nutrition:nutritionFor(day,person,m.id,date)}));
 }
+
